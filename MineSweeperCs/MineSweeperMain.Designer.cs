@@ -421,8 +421,12 @@ namespace MineSweeperCs
         private void UpdateTimerLabel()
         {
             int minutes = elapsedTime / 60;
+            int minA = minutes / 10;
+            int minB = minutes % 10;
             int seconds = elapsedTime % 60;
-            timerLabel.Text = $"Time: {minutes}:{seconds}";
+            int secA = seconds / 10;
+            int secB = seconds % 10;
+            timerLabel.Text = $"Time: {minA}{minB}:{secA}{secB}";
             LayoutGameInfoControls();
         }
 
