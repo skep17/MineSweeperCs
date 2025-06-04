@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CellInfo.cs" />
+    <Compile Include="MineSweeperGrid.cs" />
     <Compile Include="MineSweeperMain.cs">
       <SubType>Form</SubType>
     </Compile>

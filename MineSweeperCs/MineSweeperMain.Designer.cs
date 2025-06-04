@@ -29,89 +29,15 @@ namespace MineSweeperCs
         #region Windows Form Designer generated code
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// Required method for Designer support
         /// </summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MineSweeperMain));
-            this.startButton = new System.Windows.Forms.Button();
-            this.quitButton = new System.Windows.Forms.Button();
-            this.easyButton = new System.Windows.Forms.Button();
-            this.mediumButton = new System.Windows.Forms.Button();
-            this.hardButton = new System.Windows.Forms.Button();
-            this.backButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // startButton
-            // 
-            this.startButton.BackColor = System.Drawing.Color.SkyBlue;
-            this.startButton.Location = new System.Drawing.Point(206, 200);
-            this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(100, 50);
-            this.startButton.TabIndex = 0;
-            this.startButton.Text = "Start";
-            this.startButton.UseVisualStyleBackColor = false;
-            this.startButton.Click += new System.EventHandler(this.startButtonClick);
-            // 
-            // quitButton
-            // 
-            this.quitButton.BackColor = System.Drawing.Color.SkyBlue;
-            this.quitButton.Location = new System.Drawing.Point(206, 272);
-            this.quitButton.Name = "quitButton";
-            this.quitButton.Size = new System.Drawing.Size(100, 50);
-            this.quitButton.TabIndex = 1;
-            this.quitButton.Text = "Quit";
-            this.quitButton.UseVisualStyleBackColor = false;
-            this.quitButton.Click += new System.EventHandler(this.quitButtonClick);
-            //
-            // easyButton
-            //
-            this.easyButton.BackColor = System.Drawing.Color.Green;
-            this.easyButton.Location = new System.Drawing.Point(206, 138);
-            this.easyButton.Name = "easyButton";
-            this.easyButton.Size = new System.Drawing.Size(100, 50);
-            this.easyButton.TabIndex = 2;
-            this.easyButton.Text = "Easy";
-            this.easyButton.UseVisualStyleBackColor = false;
-            this.easyButton.Visible = false;
-            this.easyButton.Click += new System.EventHandler(this.easyButtonClick);
-            //
-            // mediumButton
-            //
-            this.mediumButton.BackColor = System.Drawing.Color.Yellow;
-            this.mediumButton.Location = new System.Drawing.Point(206, 200);
-            this.mediumButton.Name = "mediumButton";
-            this.mediumButton.Size = new System.Drawing.Size(100, 50);
-            this.mediumButton.TabIndex = 3;
-            this.mediumButton.Text = "Medium";
-            this.mediumButton.UseVisualStyleBackColor = false;
-            this.mediumButton.Visible = false;
-            this.mediumButton.Click += new System.EventHandler(this.mediumButtonClick);
-            //
-            // hardButton
-            //
-            this.hardButton.BackColor = System.Drawing.Color.Red;
-            this.hardButton.Location = new System.Drawing.Point(206, 272);
-            this.hardButton.Name = "hardButton";
-            this.hardButton.Size = new System.Drawing.Size(100, 50);
-            this.hardButton.TabIndex = 4;
-            this.hardButton.Text = "Hard";
-            this.hardButton.UseVisualStyleBackColor = false;
-            this.hardButton.Visible = false;
-            this.hardButton.Click += new System.EventHandler(this.hardButtonClick);
-            //
-            // backButton
-            //
-            this.backButton.BackColor = System.Drawing.Color.SkyBlue;
-            this.backButton.Location = new System.Drawing.Point(206, 334);
-            this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(100, 50);
-            this.backButton.TabIndex = 5;
-            this.backButton.Text = "Back";
-            this.backButton.UseVisualStyleBackColor = false;
-            this.backButton.Visible = false;
-            this.backButton.Click += new System.EventHandler(this.backButtonClick);
+
+            this.InitializeCustomComponents();
+
             // 
             // MineSweeperMain
             // 
@@ -133,7 +59,241 @@ namespace MineSweeperCs
             this.ResumeLayout(false);
         }
 
-        private void showInitialMenu(bool arg = true)
+        #endregion
+
+        #region Initialize Custom Components
+
+        /// <summary>
+        /// Initializes the custom components for the MineSweeper game.
+        /// </summary>
+        private void InitializeCustomComponents()
+        {
+            this.InitializeInitialMenuButtons();
+            this.InitializeOptionsMenuButtons();
+            this.InitializeGameInfo();
+        }
+
+        /// <summary>
+        /// Initializes the buttons for the initial menu.
+        /// </summary>
+        private void InitializeInitialMenuButtons()
+        {
+            startButton = new Button
+            {
+                Name = "startButton",
+                Text = "Start",
+                BackColor = Color.SkyBlue,
+                Visible = true,
+                Enabled = true
+            };
+            startButton.Click += StartButtonClick;
+            quitButton = new Button
+            {
+                Name = "quitButton",
+                Text = "Quit",
+                BackColor = Color.SkyBlue,
+                Visible = true,
+                Enabled = true
+            };
+            quitButton.Click += QuitButtonClick;
+        }
+
+        /// <summary>
+        /// Initializes the buttons for the options menu.
+        /// </summary>
+        private void InitializeOptionsMenuButtons()
+        {
+            easyButton = new Button
+            {
+                Name = "easyButton",
+                Text = "Easy",
+                BackColor = Color.Green,
+                Visible = false,
+                Enabled = false
+            };
+            easyButton.Click += EasyButtonClick;
+            mediumButton = new Button
+            {
+                Name = "mediumButton",
+                Text = "Medium",
+                BackColor = Color.Yellow,
+                Visible = false,
+                Enabled = false
+            };
+            mediumButton.Click += MediumButtonClick;
+            hardButton = new Button
+            {
+                Name = "hardButton",
+                Text = "Hard",
+                BackColor = Color.Red,
+                Visible = false,
+                Enabled = false
+            };
+            hardButton.Click += HardButtonClick;
+            backButton = new Button
+            {
+                Name = "backButton",
+                Text = "Back",
+                BackColor = Color.SkyBlue,
+                Visible = false,
+                Enabled = false
+            };
+            backButton.Click += BackButtonClick;
+        }
+
+        private void InitializeGameInfo()
+        {
+            if (minesLabel == null)
+            {
+                minesLabel = new Label
+                {
+                    AutoSize = true,
+                    Font = new Font("Segoe UI", 18, FontStyle.Bold),
+                    ForeColor = Color.White,
+                    BackColor = Color.Transparent,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Visible = false
+                };
+                this.Controls.Add(minesLabel);
+            }
+
+            if (timerLabel == null)
+            {
+                timerLabel = new Label
+                {
+                    AutoSize = true,
+                    Font = new Font("Segoe UI", 18, FontStyle.Bold),
+                    ForeColor = Color.White,
+                    BackColor = Color.Transparent,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Visible = false
+                };
+                this.Controls.Add(timerLabel);
+            }
+
+            if (finishGameButton == null)
+            {
+                finishGameButton = new Button
+                {
+                    Text = "Finish Game",
+                    Font = new Font("Segoe UI", 14, FontStyle.Bold),
+                    BackColor = Color.OrangeRed,
+                    ForeColor = Color.White,
+                    AutoSize = true,
+                    Visible = false
+                };
+                finishGameButton.Click += FinishGameButtonClick;
+                this.Controls.Add(finishGameButton);
+            }
+
+            if (gameTimer == null)
+            {
+                gameTimer = new Timer();
+                gameTimer.Interval = 1000;
+                gameTimer.Tick += (s, e) =>
+                {
+                    elapsedTime++;
+                    UpdateTimerLabel();
+                };
+            }
+
+            LayoutGameInfoControls();
+        }
+
+        #endregion
+
+        #region Event Handlers
+
+        /// <summary>
+        /// Handles the click event for the start button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StartButtonClick(object sender, EventArgs e)
+        {
+            this.ShowInitialMenu(false);
+
+            this.ShowOptionsMenu(true);
+        }
+
+        /// <summary>
+        /// Handles the click event for the quit button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void QuitButtonClick(object sender, EventArgs e)
+        {
+            // Close the application
+            Application.Exit();
+        }
+
+        /// <summary>
+        /// Handles the click event for the easy button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EasyButtonClick(object sender, EventArgs e)
+        {
+            this.ShowOptionsMenu(false);
+
+            this.CreateEasyGrid();
+        }
+
+        /// <summary>
+        /// Handles the click event for the medium button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MediumButtonClick(object sender, EventArgs e)
+        {
+            this.ShowOptionsMenu(false);
+
+            this.CreateMediumGrid();
+        }
+
+        /// <summary>
+        /// Handles the click event for the hard button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HardButtonClick(object sender, EventArgs e)
+        {
+            this.ShowOptionsMenu(false);
+
+            this.CreateHardGrid();
+        }
+
+        /// <summary>
+        /// Handles the click event for the back button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BackButtonClick(object sender, EventArgs e)
+        {
+            this.ShowOptionsMenu(false);
+
+            this.ShowInitialMenu(true);
+        }
+
+        /// <summary>
+        /// Handles the click event for the finish game button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FinishGameButtonClick(object sender, EventArgs e)
+        {
+            this.FinishGame("Game Finished Early!");
+        }
+
+        #endregion
+
+        #region Helper Methods
+
+        /// <summary>
+        /// Shows the initial menu with start and quit buttons.
+        /// </summary>
+        /// <param name="arg"></param>
+        private void ShowInitialMenu(bool arg = true)
         {
             startButton.Enabled = arg;
             startButton.Visible = arg;
@@ -141,7 +301,11 @@ namespace MineSweeperCs
             quitButton.Visible = arg;
         }
 
-        private void showOptionsMenu(bool arg = true)
+        /// <summary>
+        /// Shows the options menu with difficulty level buttons.
+        /// </summary>
+        /// <param name="arg"></param>
+        private void ShowOptionsMenu(bool arg = true)
         {
             easyButton.Enabled = arg;
             easyButton.Visible = arg;
@@ -153,192 +317,184 @@ namespace MineSweeperCs
             backButton.Visible = arg;
         }
 
-        private void startButtonClick(object sender, EventArgs e)
+        /// <summary>
+        /// Shows the game information controls such as mines left, timer, and finish game button.
+        /// </summary>
+        /// <param name="arg"></param>
+        private void ShowGameInfoControls(bool arg = true)
         {
-            this.showInitialMenu(false);
-
-            this.showOptionsMenu(true);
+            minesLabel.Visible = arg;
+            timerLabel.Visible = arg;
+            finishGameButton.Enabled = arg;
+            finishGameButton.Visible = arg;
         }
 
-        private void quitButtonClick(object sender, EventArgs e)
+        /// <summary>
+        /// Centers the initial menu buttons on the form.
+        /// </summary>
+        private void CenterInitialMenuButtons()
         {
-            // Close the application
-            Application.Exit();
-        }
-        
-        private void easyButtonClick(object sender, EventArgs e)
-        {
-            this.showOptionsMenu(false);
+            int totalHeight = menuButtonHeight * 2 + menuButtonGap;
+            int startY = (this.ClientSize.Height - totalHeight) / 2;
+            int centerX = (this.ClientSize.Width - menuButtonWidth) / 2;
 
-            this.createEasyGrid();
-        }
-
-        private void mediumButtonClick(object sender, EventArgs e)
-        {
-            this.showOptionsMenu(false);
+            startButton.Location = new Point(centerX, startY);
+            quitButton.Location = new Point(centerX, startY + menuButtonHeight + menuButtonGap);
         }
 
-        private void hardButtonClick(object sender, EventArgs e)
+        /// <summary>
+        /// Centers the options menu buttons on the form.
+        /// </summary>
+        private void CenterOptionsMenuButtons()
         {
-            this.showOptionsMenu(false);
+            int totalHeight = menuButtonHeight * 4 + menuButtonGap * 3;
+            int startY = (this.ClientSize.Height - totalHeight) / 2;
+            int centerX = (this.ClientSize.Width - menuButtonWidth) / 2;
+
+            easyButton.Location = new Point(centerX, startY);
+            mediumButton.Location = new Point(centerX, startY + menuButtonHeight + menuButtonGap);
+            hardButton.Location = new Point(centerX, startY + (menuButtonHeight + menuButtonGap) * 2);
+            backButton.Location = new Point(centerX, startY + (menuButtonHeight + menuButtonGap) * 3);
         }
 
-        private void backButtonClick(object sender, EventArgs e)
+        /// <summary>
+        /// Updates the sizes of the menu buttons based on the defined width and height.
+        /// </summary>
+        private void UpdateMenuButtonSizes()
         {
-            this.showOptionsMenu(false);
-
-            this.showInitialMenu(true);
+            startButton.Size = new Size(menuButtonWidth, menuButtonHeight);
+            quitButton.Size = new Size(menuButtonWidth, menuButtonHeight);
+            easyButton.Size = new Size(menuButtonWidth, menuButtonHeight);
+            mediumButton.Size = new Size(menuButtonWidth, menuButtonHeight);
+            hardButton.Size = new Size(menuButtonWidth, menuButtonHeight);
+            backButton.Size = new Size(menuButtonWidth, menuButtonHeight);
         }
 
-        private bool checkWin()
+        /// <summary>
+        /// Helper method to finish the game and display a message.
+        /// </summary>
+        /// <param name="message"></param>
+        private void FinishGame(string message)
         {
-            bool ret = true;
-
-            foreach (var b in gameGrid)
-            {
-                var info = b.Tag as CellInfo;
-                if (!info.Opened && info.MineNum != -1)
-                {
-                    ret = false;
-                    break;
-                }
-            }
-
-            return ret;
+            gameTimer.Stop();
+            MessageBox.Show(message, "Game Finished", MessageBoxButtons.OK);
+            gameGrid.ClearGrid();
+            ShowGameInfoControls(false);
+            this.ShowInitialMenu();
         }
 
-        private void blankButtonMouseDown(object sender, MouseEventArgs e)
+        /// <summary>
+        /// Layouts the game information controls in the center of the form.
+        /// </summary>
+        private void LayoutGameInfoControls()
         {
-            Button button = sender as Button;
-            if (button == null) return;
+            int areaHeight = this.ClientSize.Height / 4;
+            int centerY = areaHeight / 2;
 
-            CellInfo cellInfo = button.Tag as CellInfo;
-            if (cellInfo == null) return;
+            int spacing = 32;
+            int buttonWidth = finishGameButton.Width;
+            int minesWidth = minesLabel.Width;
+            int timerWidth = timerLabel.Width;
+            int totalWidth = minesWidth + timerWidth + buttonWidth + spacing * 2;
 
-            
-            if (cellInfo.Opened == false)
-            {
-                if (e.Button == MouseButtons.Left)
-                {
-                    button.Image = null;
-                    if (cellInfo.MineNum == -1)
-                    {
-                        MessageBox.Show("Game Over!");
-                        this.clearGrid();
-                        this.showInitialMenu();
-                    }
-                    else
-                    {
-                        button.Text = cellInfo.MineNum.ToString();
-                        cellInfo.Opened = true;
-                        button.Tag = cellInfo;
-                        button.BackColor = Color.LightGreen;
-                        if (checkWin())
-                        {
-                            MessageBox.Show("You Win!");
-                            this.clearGrid();
-                            this.showInitialMenu();
-                        }
-                    }
-                }
-                else if (e.Button == MouseButtons.Right)
-                {
-                    if (button.Image == null)
-                    {
-                        button.Image = new Bitmap(Properties.Resources.Csharp_Logo, button.Size);
-                        button.ImageAlign = ContentAlignment.MiddleCenter;
-                        button.Text = "";
-                    }
-                    else
-                    {
-                        button.Image = null;
-                    }
-                }
-                   
-            }
+            int startX = (this.ClientSize.Width - totalWidth) / 2;
+
+            timerLabel.Location = new Point(startX, centerY - minesLabel.Height / 2);
+            minesLabel.Location = new Point(startX + minesWidth + spacing, centerY - timerLabel.Height / 2);
+            finishGameButton.Location = new Point(startX + minesWidth + spacing + timerWidth + spacing, centerY - finishGameButton.Height / 2);
         }
 
-        private void createGrid(int width, int height, int offset, int buttonSize)
+        /// <summary>
+        /// Updates the mines label to show the number of remaining mines.
+        /// </summary>
+        /// <param name="flaggedCount"></param>
+        private void UpdateMinesLabel(int flaggedCount)
         {
-            this.gameGrid = new Button[width,height];
-
-            for (int i = 0; i < width; i++)
-            {
-                for (int j = 0; j < height; j++)
-                {
-                    Button button = new Button();
-
-                    button.Size = new System.Drawing.Size(buttonSize, buttonSize);
-                    button.Location = new Point(offset + j * buttonSize, 100 + offset + i * buttonSize);
-                    button.BackColor = Color.AntiqueWhite;
-                    button.Name = $"button_{i}_{j}";
-                    button.Text = "";
-                    button.Tag = new CellInfo();
-                    button.MouseDown += blankButtonMouseDown;
-
-                    this.Controls.Add(button);
-                    this.gameGrid[i, j] = button;
-                }
-            }
+            int remaining = totalMines - flaggedCount;
+            minesLabel.Text = $"Mines: {remaining}";
+            LayoutGameInfoControls();
         }
 
-        private void clearGrid()
+        /// <summary>
+        /// Updates the timer label to show the elapsed time in minutes and seconds.
+        /// </summary>
+        private void UpdateTimerLabel()
         {
-            foreach (var b in  this.gameGrid)
-            {
-                Controls.Remove(b);
-            }
-            gameGrid = null;
+            int minutes = elapsedTime / 60;
+            int seconds = elapsedTime % 60;
+            timerLabel.Text = $"Time: {minutes}:{seconds}";
+            LayoutGameInfoControls();
         }
-
-        private List<Point> generateRandomPoints(int count, int width, int height)
-        {
-            Random rand = new Random();
-            HashSet<Point> points = new HashSet<Point>();
-
-            while (points.Count < count)
-            {
-                int w = rand.Next(0, width);
-                int h = rand.Next(0, height);
-                Point p = new Point(w, h);
-
-                points.Add(p);
-            }
-
-            return new List<Point>(points);
-        }
-
-        private void updateGrid(List<Point> points)
-        {
-            foreach (Point p in points)
-            {
-                CellInfo c = gameGrid[p.X, p.Y].Tag as CellInfo;
-                c.MineNum = -1;
-                gameGrid[p.X, p.Y].Tag = c;
-
-                for (int i = p.X - 1; i <= p.X + 1; i++)
-                {
-                    if (i < 0 || i >= gameGrid.GetLength(0)) continue;
-                    for (int j = p.Y - 1; j <= p.Y + 1; j++)
-                    {
-                        if (j < 0 || j >= gameGrid.GetLength(1)) continue;
-                        c = gameGrid[i,j].Tag as CellInfo;
-                        if (c.MineNum >= 0) c.MineNum = c.MineNum + 1;
-                        gameGrid[i, j].Tag = c;
-                    }
-                }
-            }
-        }
-
-        private void createEasyGrid()
-        {
-            this.createGrid(8, 8, 6, 25);
-            List<Point> points = this.generateRandomPoints(10, 8, 8);
-            updateGrid(points);
-        }
-
 
         #endregion
+
+        #region Grid Creation Methods
+
+        /// <summary>
+        /// Creates an easy grid for the Minesweeper game.
+        /// </summary>
+        private void CreateEasyGrid()
+        {
+            int gridWidth = 8, gridHeight = 8, mineCount = 10;
+            CreateGameGrid(gridWidth, gridHeight, mineCount);
+        }
+
+        /// <summary>
+        /// Creates a medium grid for the Minesweeper game.
+        /// </summary>
+        private void CreateMediumGrid()
+        {
+            int gridWidth = 16, gridHeight = 16, mineCount = 40;
+            CreateGameGrid(gridWidth, gridHeight, mineCount);
+        }
+
+        /// <summary>
+        /// Creates a hard grid for the Minesweeper game.
+        /// </summary>
+        private void CreateHardGrid()
+        {
+            int gridWidth = 30, gridHeight = 16, mineCount = 99;
+            CreateGameGrid(gridWidth, gridHeight, mineCount);
+        }
+
+        /// <summary>
+        /// Creates a game grid with the specified dimensions and mine count.
+        /// </summary>
+        /// <param name="gridWidth"></param>
+        /// <param name="gridHeight"></param>
+        /// <param name="mineCount"></param>
+        private void CreateGameGrid(int gridWidth, int gridHeight, int mineCount)
+        {
+            totalMines = mineCount;
+            elapsedTime = 0;
+            UpdateTimerLabel();
+            UpdateMinesLabel(0);
+            ShowGameInfoControls(true);
+
+            gameGrid.CreateGrid(gridWidth, gridHeight, mineCount);
+
+            ShowGameInfoControls(true);
+
+            gameTimer.Start();
+        }
+
+        #endregion
+
+        private void MineSweeperMain_Load(object sender, EventArgs e)
+        {
+            menuButtonWidth = this.ClientSize.Width / 4;
+            menuButtonHeight = this.ClientSize.Height / 16;
+            menuButtonGap = menuButtonHeight / 2;
+
+            UpdateMenuButtonSizes();
+
+            CenterInitialMenuButtons();
+            CenterOptionsMenuButtons();
+        }
+
+        private int menuButtonWidth;
+        private int menuButtonHeight;
+        private int menuButtonGap;
 
         private Button startButton;
         private Button quitButton;
@@ -347,7 +503,14 @@ namespace MineSweeperCs
         private Button hardButton;
         private Button backButton;
 
-        private Button[,] gameGrid;
+        private Label minesLabel;
+        private Label timerLabel;
+        private Button finishGameButton;
+        private Timer gameTimer;
+        private int elapsedTime;
+        private int totalMines;
+
+        private MineSweeperGrid gameGrid;
     }
 }
 
