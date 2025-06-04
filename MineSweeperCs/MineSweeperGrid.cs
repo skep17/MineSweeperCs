@@ -138,8 +138,9 @@ namespace MineSweeperCs
                     button.Image = null;
                     if (cellInfo.MineNum == -1)
                     {
-                        cellInfo.Opened = true;
-                        button.Tag = cellInfo;
+                        button.Image = new Bitmap(Properties.Resources.Mine_Icon, button.Size);
+                        button.ImageAlign = ContentAlignment.MiddleCenter;
+                        button.Text = "";
                         button.BackColor = Color.Red;
                         GameFinish?.Invoke(GameFinishType.Lose);
                     }
