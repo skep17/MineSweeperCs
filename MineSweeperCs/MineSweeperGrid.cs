@@ -242,13 +242,15 @@ namespace MineSweeperCs
         /// <param name="sender">The button that triggered the event. Must be of type <see cref="Button"/>.</param>
         /// <param name="mouseButtons">The mouse button used to trigger the event. Expected values are <see cref="MouseButtons.Left"/> or <see
         /// cref="MouseButtons.Right"/>.</param>
-        private void TryButtonOpen(Object sender, MouseButtons mouseButtons, bool safeOpen = true)
+        private bool TryButtonOpen(Object sender, MouseButtons mouseButtons, bool safeOpen = true)
         {
+            bool ret = false;
+            
             Button button = sender as Button;
-            if (button == null) return;
+            if (button == null) return ret;
 
             CellInfo cellInfo = button.Tag as CellInfo;
-            if (cellInfo == null) return;
+            if (cellInfo == null) return ret;
 
             if (mouseButtons == MouseButtons.Left)
             {
@@ -268,6 +270,7 @@ namespace MineSweeperCs
                     {
                         GameFinish?.Invoke(GameFinishType.Win);
                     }
+                    ret = true;
                 }
             }
             else if (mouseButtons == MouseButtons.Right)
@@ -286,6 +289,8 @@ namespace MineSweeperCs
                 }
                 MineCountUpdate?.Invoke();
             }
+
+            return ret;
         }
 
         /// <summary>
@@ -321,7 +326,7 @@ namespace MineSweeperCs
                         int newY = cellInfo.Y + j;
                         if (newX >= 0 && newX < GameGrid.GetLength(0) && newY >= 0 && newY < GameGrid.GetLength(1))
                         {
-                            OpenButton(GameGrid[newX, newY]);
+                            if (!TryButtonOpen(GameGrid[newX, newY], MouseButtons.Left)) return;
                         }
                     }
                 }
