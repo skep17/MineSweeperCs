@@ -326,7 +326,7 @@ namespace MineSweeperCs
                         int newY = cellInfo.Y + j;
                         if (newX >= 0 && newX < GameGrid.GetLength(0) && newY >= 0 && newY < GameGrid.GetLength(1))
                         {
-                            if (!TryButtonOpen(GameGrid[newX, newY], MouseButtons.Left)) return;
+                            if (GameGrid[newX, newY].Image == null && !TryButtonOpen(GameGrid[newX, newY], MouseButtons.Left)) return;
                         }
                     }
                 }
