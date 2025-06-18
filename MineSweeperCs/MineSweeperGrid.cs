@@ -137,8 +137,6 @@ namespace MineSweeperCs
                 parent.Controls.Remove(b);
             }
             GameGrid = null;
-            GameFinish = null;
-            MineCountUpdate = null;
             FlaggedCount = 0;
         }
 
