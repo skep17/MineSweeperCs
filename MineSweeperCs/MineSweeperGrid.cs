@@ -325,6 +325,7 @@ namespace MineSweeperCs
                         if (i == 0 && j == 0) continue;
                         int newX = cellInfo.X + i;
                         int newY = cellInfo.Y + j;
+                        if (GameGrid == null) return;
                         if (newX >= 0 && newX < GameGrid.GetLength(0) && newY >= 0 && newY < GameGrid.GetLength(1))
                         {
                             if (GameGrid[newX, newY].Image == null && !TryButtonOpen(GameGrid[newX, newY], MouseButtons.Left)) return;
