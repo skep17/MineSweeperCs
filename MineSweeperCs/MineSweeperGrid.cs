@@ -294,6 +294,22 @@ namespace MineSweeperCs
             return ret;
         }
 
+        private Color getCellColor(int mineNum)
+        {
+            switch (mineNum)
+            {
+                case 1: return ColorTranslator.FromHtml("#FFFF00"); // Yellow
+                case 2: return ColorTranslator.FromHtml("#FFCC00"); // Light Orange
+                case 3: return ColorTranslator.FromHtml("#FF9900"); // Orange
+                case 4: return ColorTranslator.FromHtml("#FF6600"); // Dark Orange
+                case 5: return ColorTranslator.FromHtml("#FF3300"); // Reddish Orange
+                case 6: return ColorTranslator.FromHtml("#FF2200"); // Light Red
+                case 7: return ColorTranslator.FromHtml("#FF1100"); // Medium Red
+                case 8: return ColorTranslator.FromHtml("#FF0000"); // Red
+                default: return Color.Black;
+            }
+        }
+
         /// <summary>
         /// Handles the opening of a button in the game grid.
         /// </summary>
@@ -313,7 +329,7 @@ namespace MineSweeperCs
             button.Tag = cellInfo;
             if (cellInfo.MineNum > 0 && safeOpen)
             {
-                button.BackColor = Color.Yellow;
+                button.BackColor = getCellColor(cellInfo.MineNum);
             }
             else
             {
